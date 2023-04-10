@@ -1,13 +1,15 @@
-import json
+import os
 
 import requests
+from dotenv import load_dotenv
 from rest_framework import status
-from rest_framework.decorators import api_view, permission_classes, authentication_classes
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import api_view, authentication_classes
 from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
-from chat.models import Conversation, Message, Setting
+from chat.models import Conversation, Message
+
+load_dotenv()
 
 MURA_URL = "https://api.usemeru.com/refine/v4"
 
@@ -26,7 +28,7 @@ MODEL = {
 @authentication_classes([JWTAuthentication])
 # @permission_classes([IsAuthenticated])
 def conversation(request):
-    api_key = get_openai_api_key()
+    api_key = get_api_key()
     if api_key is None:
         return Response(
             {
@@ -87,9 +89,9 @@ def conversation(request):
     return Response(response, status=status.HTTP_200_OK)
 
 
-def get_openai_api_key():
-    row = Setting.objects.filter(name='openai_api_key').first()
-    if row:
-        return row.value
+def get_api_key():
+    api_key = os.getenv("API_KEY")
+    if api_key:
+        return api_key
     return None
 
