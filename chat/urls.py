@@ -1,6 +1,6 @@
 from django.urls import include, path
 from rest_framework import routers
-from .views import ConversationViewSet, MessageViewSet, PromptViewSet, SettingViewSet
+from .views.views import ConversationViewSet, MessageViewSet, PromptViewSet, SettingViewSet
 
 router = routers.SimpleRouter()
 router.register(r'conversations', ConversationViewSet, basename='conversationModel')
