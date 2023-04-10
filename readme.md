@@ -51,6 +51,16 @@ Password (again): *********
 Superuser created successfully.
 ```
 
+### Set up `.env` file
+
+We will read config from `.env` file.
+
+Create a file name `.env` in the root directory and add following config:
+
+```
+API_KEY=YOUR_MURA_API_KEY
+```
+
 ### Start the server
 
 ```
@@ -68,17 +78,6 @@ April 10, 2023 - 22:31:31
 Django version 4.1.7, using settings 'mercury.settings'
 Starting development server at http://127.0.0.1:8000/
 Quit the server with CTRL-BREAK.
-```
-
-### Set up `.env` file
-
-We will read config from `.env` file.
-
-Create a file name `.env` and add following config:
-
-```
-MURA_URL=https://api.usemeru.com/refine/v4
-API_KEY=YOUR_MURA_API_KEY
 ```
 
 Now GL&HF! :)
