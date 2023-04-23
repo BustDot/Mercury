@@ -16,7 +16,7 @@ MURA_URL = "https://api.usemeru.com/refine/v4"
 MODEL = {
     "model_id": "context-text-davinci-003",
     "inputs": {
-        "file_id": "83f53a84-b289-46cf-a8ae-7d178b9d9ebc",
+        "file_id": "e424f5e3-b836-40b5-b68f-c5a74ae484db",
         "prompt": "",
         "temperature": 0.5,
         "max_tokens": 512
@@ -55,7 +55,7 @@ def conversation(request):
     message_obj.save()
 
     try:
-        model["inputs"]["prompt"] = message
+        model["inputs"]["prompt"] = "请用中文回答" + message
         headers = {
             "x-api-key": f"{api_key}",
             "Content-Type": "application/json"
