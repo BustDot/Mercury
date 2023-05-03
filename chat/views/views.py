@@ -1,22 +1,11 @@
-import os
-import json
-import openai
-import datetime
-import tiktoken
+from rest_framework import viewsets, status
+from rest_framework.decorators import action
 from rest_framework.exceptions import APIException
-from rest_framework.renderers import JSONRenderer
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
 from chat.models import Conversation, Message, Setting, Prompt
-from django.conf import settings
-from django.http import StreamingHttpResponse
-from rest_framework import viewsets, status
-from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
-from rest_framework_simplejwt.authentication import JWTAuthentication
-from rest_framework.decorators import api_view, authentication_classes, permission_classes, action
 from chat.serializers import ConversationSerializer, MessageSerializer, PromptSerializer, SettingSerializer
-from utils.search_prompt import compile_prompt
-from utils.duckduckgo_search import web_search, SearchRequest
 
 
 class SettingViewSet(viewsets.ModelViewSet):
@@ -39,6 +28,7 @@ class SettingViewSet(viewsets.ModelViewSet):
 
 class ConversationViewSet(viewsets.ModelViewSet):
     serializer_class = ConversationSerializer
+
     # authentication_classes = [JWTAuthentication]
     # permission_classes = [IsAuthenticated]
 
@@ -103,7 +93,3 @@ class PromptViewSet(viewsets.ModelViewSet):
         queryset = self.filter_queryset(self.get_queryset())
         queryset.delete()
         return Response(status=204)
-
-
-
-

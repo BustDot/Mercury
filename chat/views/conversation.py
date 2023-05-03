@@ -3,9 +3,8 @@ import os
 import requests
 from dotenv import load_dotenv
 from rest_framework import status
-from rest_framework.decorators import api_view, authentication_classes
+from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from chat.models import Conversation, Message
 
@@ -100,4 +99,3 @@ def get_api_key():
     if api_key:
         return api_key
     return None
-
