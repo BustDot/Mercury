@@ -40,11 +40,11 @@ jobs:
         context: .
         target: wsgi-server
         push: true
-        tags: ${{ secrets.DOCKER_HUB_USER }}/${{ env.IMAGE_NAME }}_wsgi_server:${{ env.IMAGE_TAG }}
+        tags: ${{ secrets.DOCKER_HUB_USER }}/$mercury_wsgi_server:${{ env.IMAGE_TAG }}
     -
       name: Build and push Web Server
       uses: docker/build-push-action@v4
       with:
         context: .
         push: true
-        tags: ${{ secrets.DOCKER_HUB_USER }}/${{ env.IMAGE_NAME }}_web_server:${{ env.IMAGE_TAG }}
+        tags: ${{ secrets.DOCKER_HUB_USER }}/$mercury_web_server:${{ env.IMAGE_TAG }}
