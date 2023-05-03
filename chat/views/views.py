@@ -3,6 +3,9 @@ import json
 import openai
 import datetime
 import tiktoken
+from rest_framework.exceptions import APIException
+from rest_framework.renderers import JSONRenderer
+
 from chat.models import Conversation, Message, Setting, Prompt
 from django.conf import settings
 from django.http import StreamingHttpResponse
@@ -37,7 +40,7 @@ class SettingViewSet(viewsets.ModelViewSet):
 class ConversationViewSet(viewsets.ModelViewSet):
     serializer_class = ConversationSerializer
     # authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         return Conversation.objects.filter(user=self.request.user).order_by('-created_at')
@@ -52,14 +55,28 @@ class ConversationViewSet(viewsets.ModelViewSet):
 class MessageViewSet(viewsets.ModelViewSet):
     serializer_class = MessageSerializer
     # authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     queryset = Message.objects.all()
+
+    def handle_exception(self, exc):
+        if isinstance(exc, APIException):
+            # 如果是APIException类型，可以直接使用异常对象的详细信息
+            message = exc.detail
+        else:
+            # 如果不是APIException类型，可以自定义错误消息
+            message = 'An error occurred while processing your request.'
+
+        # 使用Response对象返回错误消息
+        return Response({'error': message}, status=400)
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        conversationId = self.request.query_params.get('conversationId')
-        if conversationId:
-            queryset = queryset.filter(conversation_id=conversationId).order_by('created_at')
+        user_id = self.request.query_params.get('userId')
+
+        if user_id:
+            conversation_obj = Conversation.objects.get(user=user_id)
+            conversation_id = conversation_obj.id
+            queryset = queryset.filter(conversation_id=conversation_id).order_by('created_at')
         return queryset
 
 

@@ -25,7 +25,7 @@ MODEL = {
 
 
 @api_view(['POST'])
-@authentication_classes([JWTAuthentication])
+# @authentication_classes([JWTAuthentication])
 # @permission_classes([IsAuthenticated])
 def conversation(request):
     api_key = get_api_key()
@@ -38,15 +38,21 @@ def conversation(request):
         )
     model = MODEL
     message = request.data.get('message')
-    conversation_id = request.data.get('conversationId')
+    user_id = request.data.get('userId')
 
-    if conversation_id:
-        # get the conversation
-        conversation_obj = Conversation.objects.get(id=conversation_id)
+    if user_id is None:
+        return Response(
+            {
+                'error': 'Invalid userId'
+            },
+            status=status.HTTP_400_BAD_REQUEST
+        )
     else:
-        # create a new conversation
-        conversation_obj = Conversation(user=request.user)
-        conversation_obj.save()
+        if not Conversation.objects.filter(user=user_id).exists():
+            # create a new conversation
+            conversation_obj = Conversation(user=user_id)
+            conversation_obj.save()
+    conversation_obj = Conversation.objects.get(user=user_id)
     # insert a new message
     message_obj = Message(
         conversation_id=conversation_obj.id,
