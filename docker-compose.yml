@@ -10,7 +10,7 @@ services:
       - DJANGO_SUPERUSER_USERNAME=admin # 默认超级用户
       - DJANGO_SUPERUSER_PASSWORD=password # 默认超级用户的密码
       - DJANGO_SUPERUSER_EMAIL=admin@example.com # 默认超级用户邮箱
-      - API_KEY=YOUR_MURA_API_KEY=meru_1b5921b27638466a9f8378ae8ec7b82ce5c1b48e545440e8b3d4855c16bd5d68
+      - API_KEY=your_key
     ports:
       - '8000:8000'
     networks:
@@ -18,7 +18,7 @@ services:
   backend-web-server:
     image: bustdot/mercury_wsgi_server:latest
     environment:
-      - BACKEND_URL=http://backend_url:8000/ # 转发网址
+      - BACKEND_URL=http://123.57.82.78:8000 # 转发网址
     ports:
       - '9000:80'
     depends_on:
