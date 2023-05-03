@@ -1,0 +1,31 @@
+version: '3'
+services:
+  backend-wsgi-server:
+    image: bustdot/mercury_web_server:latest
+    environment:
+      - APP_DOMAIN=${APP_DOMAIN:-localhost:9000} # CSRF 白名单，在这里设置为 chatgpt-ui-web-server 的地址+端口, 默认： localhost:9000
+      - SERVER_WORKERS=3 # gunicorn 的工作进程数，默认为 3
+      #- DB_URL=postgres://postgres:postgrespw@localhost:49153/chatgpt # 连接外部数据库，如果不设置这个参数，则默认使用内置的 Sqlite。需要注意的是，如果不连接外部数据库，数据将在容器销毁后丢失。链接格式请看下面的 DB_URL 格式对照表
+      #- OPENAI_API_PROXY=https://openai.proxy.com/v1 # https://api.openai.com/v1 的代理地址
+      - DJANGO_SUPERUSER_USERNAME=admin # 默认超级用户
+      - DJANGO_SUPERUSER_PASSWORD=password # 默认超级用户的密码
+      - DJANGO_SUPERUSER_EMAIL=admin@example.com # 默认超级用户邮箱
+      - API_KEY=YOUR_MURA_API_KEY=meru_1b5921b27638466a9f8378ae8ec7b82ce5c1b48e545440e8b3d4855c16bd5d68
+    ports:
+      - '8000:8000'
+    networks:
+      - chatgpt_ui_network
+  backend-web-server:
+    image: bustdot/mercury_wsgi_server:latest
+    environment:
+      - BACKEND_URL=http://backend_url:8000/ # 转发网址
+    ports:
+      - '9000:80'
+    depends_on:
+      - backend-wsgi-server
+    networks:
+      - chatgpt_ui_network
+
+networks:
+  chatgpt_ui_network:
+    driver: bridge

@@ -27,8 +27,12 @@ EXPOSE 8000
 
 FROM nginx:1.22-alpine as web-server
 
+ENV BACKEND_URL=http://127.0.0.1:8000/
+
 WORKDIR /app
 
 COPY --from=wsgi-server /app/static /app/static
 
 COPY nginx.conf /etc/nginx/templates/default.conf.template
+
+EXPOSE 80
