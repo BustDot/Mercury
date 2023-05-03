@@ -17,9 +17,9 @@ WORKDIR /app
 COPY . .
 
 RUN python manage.py check --deploy \
-    && python manage.py collectstatic --no-input \
-    && dos2unix entrypoint.sh \
-    && chmod +x entrypoint.sh
+    && python manage.py collectstatic --no-input
+RUN dos2unix entrypoint.sh
+RUN chmod +x entrypoint.sh
 
 ENTRYPOINT ["./entrypoint.sh"]
 
