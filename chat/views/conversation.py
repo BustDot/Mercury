@@ -74,7 +74,8 @@ def conversation(request):
             raise Exception(f'Something went wrong: {data.get("err_msg")}')
         response = {
             "data": data.get("outputs").get("choices")[0].get("text"),
-            "conversation_id": conversation_obj.id
+            "conversation_id": conversation_obj.id,
+            "result": "success"
         }
         ai_message_obj = Message(
             conversation_id=conversation_obj.id,
