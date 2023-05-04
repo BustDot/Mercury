@@ -33,7 +33,8 @@ class ConversationViewSet(viewsets.ModelViewSet):
     # permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return Conversation.objects.filter(user=self.request.user).order_by('-created_at')
+        user_id = self.request.query_params.get('userId')
+        return Conversation.objects.filter(user=user_id).order_by('-created_at')
 
     @action(detail=False, methods=['delete'])
     def delete_all(self, request):

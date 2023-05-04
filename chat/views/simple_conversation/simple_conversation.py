@@ -14,7 +14,6 @@ def simple_conversation(request):
     question_type = request.data.get('question_type')
     if question_type in question_types:
         func = question_types[question_type]
-        print(func)
         data = func(relic_id)
         response = {'data': data, 'result': 'success'}
         return Response(data=response)
