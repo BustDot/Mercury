@@ -9,9 +9,9 @@ def role(relic_id):
             if relic["id"] == relic_id:
                 res = ""
                 if relic["role"] != "" and relic["role"].lower() != "unknown":
-                    res = f"The role of this cultural relic is {relic['role']}"
+                    res = f"这个文物的类型是{relic['role']}"
                 else:
-                    res = "Sorry,the role of this culture relic is still unknown."
+                    res = "抱歉，这个文物的类型依然未知"
 
                 return {
                     "relic_id": relic_id,
