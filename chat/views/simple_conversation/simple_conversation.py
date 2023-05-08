@@ -6,19 +6,22 @@ from chat.views.simple_conversation.artist import artist
 from chat.views.simple_conversation.role import role
 from chat.views.simple_conversation.description import description
 from chat.views.simple_conversation.title import title
+from chat.views.simple_conversation.department import department
 
 question_types = {
     'artist': artist,
     'role': role,
     'description': description,
     'title': title,
+    'department': department,
 }
 
 messages = {
     'artist': "是谁创造了这个文物？",
     'role': "这个文物是什么类型？",
     'description': "简单介绍一下这个文物",
-    'title': "这件文物的名称是？"
+    'title': "这件文物的名称是？",
+    'department': "这件文物的部门是？"
 }
 
 
