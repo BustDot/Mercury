@@ -4,15 +4,18 @@ from rest_framework.response import Response
 from chat.models import Conversation, Message
 from chat.views.simple_conversation.artist import artist
 from chat.views.simple_conversation.role import role
+from chat.views.simple_conversation.description import description
 
 question_types = {
     'artist': artist,
     'role': role,
+    'description': description,
 }
 
 messages = {
     'artist': "是谁创造了这个文物？",
-    'role': "这个文物是什么类型？"
+    'role': "这个文物是什么类型？",
+    'description': "简单介绍一下这个文物",
 }
 
 
