@@ -2,9 +2,11 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from chat.views.simple_conversation.artist import artist
+from  chat.views.simple_conversation.role import role
 
 question_types = {
     'artist': artist,
+    'role': role,
 }
 
 
