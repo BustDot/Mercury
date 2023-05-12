@@ -32,6 +32,7 @@ SECRET_KEY = 'django-insecure-__9p!i2^udts*l==hl)+6=!fi872f3ec(n%(^f-!6i$o5+7#ar
 DEBUG = os.getenv('DEBUG', False) == 'True'
 
 ALLOWED_HOSTS = ['*']
+CORS_ORIGIN_ALLOW_ALL = True
 
 app_domains = os.getenv('APP_DOMAIN', '127.0.0.1:8000').split(',')
 CSRF_TRUSTED_ORIGINS = []
@@ -42,6 +43,7 @@ for app_domain in app_domains:
 # Application definition
 
 INSTALLED_APPS = [
+    'corsheaders',
     "admin_interface",
     "colorfield",
     'django.contrib.admin',
@@ -62,6 +64,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',

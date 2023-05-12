@@ -60,7 +60,7 @@ def conversation(request):
     message_obj.save()
 
     try:
-        model["inputs"]["prompt"] = "请用中文回答" + message
+        model["inputs"]["prompt"] = "你是mercury,一名研究中国文物的专家。请用中文回答" + message
         headers = {
             "x-api-key": f"{api_key}",
             "Content-Type": "application/json"
