@@ -4,12 +4,43 @@ A chat bot who replies as you wish.
 
 > Mercury: [god of eloquence, messages and communication](https://en.wikipedia.org/wiki/Mercury_(mythology))
 
+## Demo
+
+```
+curl --location --request POST 'http://127.0.0.1:8000/api/conversation/' \
+--header 'Content-Type: application/json' \
+--header 'Accept: */*' \
+--header 'Host: 127.0.0.1:8000' \
+--header 'Connection: keep-alive' \
+--data-raw '{
+    "message": "请介绍一下Standing Bodhisattva这个文物",
+    "userId": 1
+}'
+```
+
+response:
+```json
+{
+    "data": "\n这件文物是一个不寻常的雕塑，它以中国的形式表现了印度的人物，它的体积很大，颜色鲜艳。这个人物是菩提达摩，一位佛教僧侣，据信他于520年从印度来到中国，带来了冥想佛教。从他的皱眉和闭眼，我们可以看出他正在深度冥想。他坐在雕塑的基座上，两边有便于操作的洞口，上面有一条题词，记录着日期和捐赠者：“忠实的党彦和麦太太”。",
+    "conversation_id": 1,
+    "result": "success"
+}
+```
+
 ## Quick start
+
+### Docker
+
+You can host the service by docker.
+
+```shell
+docker-compose up -d
+```
 
 ### Install
 
 ```
-git clone git@github.com:Sox-I/Mercury.git
+git clone git@github.com:BustDot/Mercury.git
 cd Mercury
 pip install -r requirements.txt
 ```
