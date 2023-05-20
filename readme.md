@@ -90,6 +90,7 @@ Create a file name `.env` in the root directory and add following config:
 
 ```
 API_KEY=YOUR_MURA_API_KEY
+FILE_ID=YOUR_INDEXED_FILE_ID
 ```
 
 ### Start the server

@@ -15,7 +15,7 @@ MURA_URL = "https://api.usemeru.com/refine/v4"
 MODEL = {
     "model_id": "context-text-davinci-003",
     "inputs": {
-        "file_id": "df86e7af-a570-4da9-a89e-92c4d73cdbb4",
+        "file_id": "",
         "prompt": "",
         "temperature": 0.5,
         "max_tokens": 512
@@ -28,6 +28,7 @@ MODEL = {
 # @permission_classes([IsAuthenticated])
 def conversation(request):
     api_key = get_api_key()
+    file_id = get_file_id()
     if api_key is None:
         return Response(
             {
@@ -61,6 +62,8 @@ def conversation(request):
 
     try:
         model["inputs"]["prompt"] = "你是mercury,一名研究中国文物的专家。请用中文回答," + message
+        model["inputs"]["file_id"] = file_id
+
         headers = {
             "x-api-key": f"{api_key}",
             "Content-Type": "application/json"
@@ -99,4 +102,11 @@ def get_api_key():
     api_key = os.getenv("API_KEY")
     if api_key:
         return api_key
+    return None
+
+
+def get_file_id():
+    file_id = os.getenv("FILE_ID")
+    if file_id:
+        return file_id
     return None
